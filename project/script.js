@@ -119,7 +119,6 @@ const calcDisplaySummary = function (acc) {
       return (deposit * acc.interestRate) / 100;
     })
     .filter(function (inter, i, arr) {
-      console.log(arr);
       return inter >= 1;
     })
     .reduce(function (accumulator, inter) {
@@ -213,3 +212,26 @@ btnTransfer.addEventListener('click', function (e) {
 });
 
 /////////////////////////////////////////////////
+
+btnClose.addEventListener('click', function (e) {
+  e.preventDefault();
+
+  if (
+    inputCloseUsername.value === currentAccount.username &&
+    Number(inputClosePin.value) === currentAccount.pin
+  ) {
+    const index = accounts.findIndex(function (acc) {
+      return acc.username === currentAccount.username;
+    });
+    //delete account
+    accounts.splice(index, 1);
+
+    //hide UI
+    containerApp.style.opacity = 0;
+  }
+  inputCloseUsername.value = inputClosePin.value = '';
+});
+
+/////////////////////////////////////////////////
+// const inputCloseUsername = document.querySelector('.form__input--user');
+// const inputClosePin = document.querySelector('.form__input--pin');
